@@ -20,10 +20,10 @@ public class KnightDamage : MonoBehaviour
         state_rb(true);
     }
 
-
+    // setting up ragdoll
     void state_rb(bool _state)
     {
-
+        
         Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
 
         foreach (Rigidbody rb in rigidbodies)
