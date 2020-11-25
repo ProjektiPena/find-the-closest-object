@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Poolmanager : MonoBehaviour
@@ -48,7 +47,7 @@ public class Poolmanager : MonoBehaviour
         {
             GameObject knight = Instantiate(KnightPrefab, Vector3.zero, Quaternion.identity) as GameObject; //Create new unit
             knight.transform.parent = KnightContainer.transform; //put unit under its own container to make things more clear in editor
-            knight.SetActive(false); //we unit unactive
+            knight.SetActive(false); //set unit unactive
             Knightlist.Add(knight); // add to list
         }
 
