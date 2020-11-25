@@ -5,45 +5,47 @@ using UnityEngine.AI;
 
 public class KnightDamage : MonoBehaviour
 {
+
+    //knights dies with ragdoll effect
+
     public int maxHealth = 100;
     public int currentHealth;
-    public bool isDead;
-    public LayerMask layer; 
+    public bool isDead; // stores dying info to bool
 
     void Start()
     {
         isDead = false;
         currentHealth = maxHealth;
-        setCollidersState(false);
-        setRigidbodyState(true);
+        state_colliders(false); 
+        state_rb(true);
     }
 
 
-    void setRigidbodyState(bool state)
+    void state_rb(bool _state)
     {
 
         Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
 
         foreach (Rigidbody rb in rigidbodies)
         {
-            rb.isKinematic = state;
+            rb.isKinematic = _state;
 
         }
 
-        GetComponent<Rigidbody>().isKinematic = !state;
+        GetComponent<Rigidbody>().isKinematic = !_state;
     }
 
-    void setCollidersState(bool state)
+    void state_colliders(bool _state)
     {
 
         Collider[] colliders = GetComponentsInChildren<Collider>();
 
         foreach (Collider collider in colliders)
         {
-            collider.enabled = state;
+            collider.enabled = _state;
 
         }
-        GetComponent<Collider>().enabled = !state;
+        GetComponent<Collider>().enabled = !_state;
     }
     public void TakeDamage(int damage)
     {
@@ -53,17 +55,13 @@ public class KnightDamage : MonoBehaviour
 
         if (currentHealth <= 0F)
         {
+            // activate ragdoll effect when knight is dead
+            // set off navmeshagents, ai-script and animator to avoid any unnecessary movements
             currentHealth = 0;
-            setCollidersState(true);
-            setRigidbodyState(false);
-            if (gameObject.GetComponent<NavMeshAgent>() != null)
-            {
-                gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            }
-            if (gameObject.GetComponent<Knight_AI>() != null)
-            {
-                gameObject.GetComponent<Knight_AI>().enabled = false;
-            }
+            state_colliders(true); 
+            state_rb(false);
+            gameObject.GetComponent<NavMeshAgent>().enabled = false; 
+            gameObject.GetComponent<Knight_AI>().enabled = false;
 
             gameObject.GetComponent<Animator>().enabled = false;
             isDead = true;

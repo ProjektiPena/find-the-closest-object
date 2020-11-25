@@ -41,9 +41,6 @@ public class Poolmanager : MonoBehaviour
     public int KnightsToSpawn = 5;
     public List<GameObject> Knightlist = new List<GameObject>();
 
-    public List<GameObject> bluesTotal = new List<GameObject>();
-    public List<GameObject> redstotal = new List<GameObject>();
-
     void Start()
     {
         //Settings objects ready for game
@@ -53,7 +50,6 @@ public class Poolmanager : MonoBehaviour
             knight.transform.parent = KnightContainer.transform; //put unit under its own container to make things more clear in editor
             knight.SetActive(false); //we unit unactive
             Knightlist.Add(knight); // add to list
-            bluesTotal.Add(knight);
         }
 
         for (int i = 0; i < r_KnightsToSpawn; i++)
@@ -62,8 +58,6 @@ public class Poolmanager : MonoBehaviour
             r_knight.transform.parent = r_KnightContainer.transform;
             r_knight.SetActive(false);
             r_Knightlist.Add(r_knight);
-            redstotal.Add(r_knight);
         }
-
     }
 }
